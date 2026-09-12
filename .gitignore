@@ -11,3 +11,8 @@
 *.fdb_latexmk
 *.bbl
 *.blg
+
+# Obsidian local UI state (machine-specific)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
