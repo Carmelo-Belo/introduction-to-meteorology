@@ -132,7 +132,7 @@
   \begin{beamercolorbox}[wd=\paperwidth,left]{frametitle}
     \hspace*{\albleftmargin}%
     \begin{minipage}[t]{\dimexpr.82\paperwidth-\albleftmargin\relax}
-      \usebeamerfont{frametitle}\insertframetitle\\[-2.5mm]
+      \usebeamerfont{frametitle}\insertframetitle\\[-4mm]
       \hspace*{\dimexpr\albsubleftmargin-\albleftmargin\relax}%
       {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}
     \end{minipage}%
