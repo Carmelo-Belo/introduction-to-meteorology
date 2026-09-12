@@ -23,7 +23,7 @@ Per-slide `Sources` rows below are left empty until specific material is collect
 
 ## Number of slides
 
-~78, across 11 modules (0-10).
+~81, across 11 modules (0-10).
 
 ## Status
 
@@ -37,7 +37,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 
 ---
 
-## Module 0 — Welcome & framing (5 slides)
+## Module 0 — Welcome & framing (6 slides)
 
 ### 0.1 Title slide
 
@@ -69,17 +69,27 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 0.4 Weather vs. climate (high-level)
+### 0.4 Weather vs. climate — the formal distinction
 
 | Category | Entry |
 |---|---|
 | **Title** | |
 | **Subtitle** | |
-| **Content** | Weather = state of the atmosphere now/short-term; climate = long-term statistical pattern. "Weather is your mood, climate is your personality" analogy. Kept intentionally high-level, no dedicated deep-dive. |
+| **Content** | Serious, definitional framing: weather = state of the atmosphere now/short-term; climate = long-term statistical pattern. Kept intentionally high-level, no dedicated deep-dive. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/weather_vs_climate.jpg` |
 
-### 0.5 Weather vs. climate — why it matters for sailors
+### 0.5 Weather vs. climate — the clothes analogy
+
+| Category | Entry |
+|---|---|
+| **Title** | |
+| **Subtitle** | |
+| **Content** | Lighter, memorable reinforcement of 0.4's distinction via the clothes analogy ("weather is your mood, climate is your personality" / what you wear today vs. your wardrobe) — makes the definition stick before moving on. |
+| **Layout** | |
+| **Sources** | `sources/figures/weather-versus-climate-illustrated-with-clothes.png` |
+
+### 0.6 Weather vs. climate — why it matters for sailors
 
 | Category | Entry |
 |---|---|
@@ -91,7 +101,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 
 ---
 
-## Module 1 — The atmosphere & basic physics (10 slides)
+## Module 1 — The atmosphere & basic physics (12 slides)
 
 ### 1.1 What is the atmosphere
 
@@ -133,7 +143,27 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 1.5 Density and the gas law
+### 1.5 Humidity
+
+| Category | Entry |
+|---|---|
+| **Title** | |
+| **Subtitle** | |
+| **Content** | Define humidity (water vapor content of the air) at a high level — absolute vs. relative humidity, no psychrometrics. Establish that pressure, temperature, and humidity are the three primary variables meteorologists track to describe the state of the atmosphere, completing the trio introduced via Modules 1.3-1.4. Briefly flag why humidity matters for sailors (fog risk, comfort, visibility), to be revisited in later modules. |
+| **Layout** | |
+| **Sources** | |
+
+### 1.6 Barometric tendency
+
+| Category | Entry |
+|---|---|
+| **Title** | |
+| **Subtitle** | |
+| **Content** | General rule of thumb linking the three variables from 1.5 to short-term weather trend: falling pressure with generally rising temperature and humidity signals deteriorating weather approaching; rising pressure with generally falling temperature and humidity signals improving/clearing weather. Framed as a simple, memorable heuristic — the practical skill of reading the on-board barometer trend against a synoptic chart is covered later in Module 6.6, and the frontal-passage signs it anticipates are covered in Module 3.7. |
+| **Layout** | |
+| **Sources** | |
+
+### 1.7 Density and the gas law
 
 | Category | Entry |
 |---|---|
@@ -143,7 +173,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 1.6 Hydrostatic balance
+### 1.8 Hydrostatic balance
 
 | Category | Entry |
 |---|---|
@@ -153,7 +183,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 1.7 Solar heating & Earth's energy balance
+### 1.9 Solar heating & Earth's energy balance
 
 | Category | Entry |
 |---|---|
@@ -161,9 +191,9 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Uneven solar heating by latitude as the root driver of atmospheric motion; sets up global circulation. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/solar-radiation-on-earth.png` |
 
-### 1.8 Global atmospheric circulation
+### 1.10 Global atmospheric circulation
 
 | Category | Entry |
 |---|---|
@@ -171,9 +201,9 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Hadley, Ferrel, and Polar cells; how they produce the prevailing wind belts sailors encounter at different latitudes. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/hadley-cell-schematic.jpg`, `sources/figures/hadley-cell-schematic-with-globe.png`, `sources/figures/hadley-cell-ideal.png`, `sources/figures/earth-global-circulation.svg` (vector original), `sources/figures/earth-global-circulation.png` (converted, LaTeX-includable) |
 
-### 1.9 The Coriolis effect
+### 1.11 The Coriolis effect
 
 | Category | Entry |
 |---|---|
@@ -181,9 +211,9 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Intuitive (non-mathematical) explanation of the Coriolis effect and how deflection direction differs by hemisphere. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/coriolis-effect-globe.png`, `sources/figures/coriolis-effect-infographic.jpg` |
 
-### 1.10 Recap — from sun to wind
+### 1.12 Recap — from sun to wind
 
 | Category | Entry |
 |---|---|
