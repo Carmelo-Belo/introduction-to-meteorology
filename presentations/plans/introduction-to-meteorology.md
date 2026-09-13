@@ -665,7 +665,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | High-level overview of the forecasting pipeline: observations → numerical model → output, without going into NWP internals. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/nwp-domain-resolution.jpg` |
 
 ### 7.2 Forecast horizon & skill decay
 
