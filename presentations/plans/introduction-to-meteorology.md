@@ -141,7 +141,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Definition of atmospheric pressure, units (hPa/mb), and why it decreases with altitude. |
 | **Layout** | Small side box: upward arrow labeled "Height ↑" paired with a downward arrow labeled "Pressure ↓", visually showing the inverse relationship. |
-| **Sources** | |
+| **Sources** | `sources/figures/atmospheric-pressure.jpg` |
 
 ### 1.5 Humidity
 
@@ -245,7 +245,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | Highs and Lows |
 | **Content** | High-pressure seabox: "Area with higher pressure relative to the surroundings, central descending air (**subsidence**) and diverging air at the surface." Low-pressure seabox: "Area with lower pressure relative to the surroundings, central rising air (**uplift**) and converging air at the surface." |
 | **Layout** | Figure centered across the top. Below it, two seaboxes side by side: high-pressure definition on the left, low-pressure definition on the right. "Subsidence" and "uplift" bolded per template convention. |
-| **Sources** | `sources/figures/high-and-lows-2d.jpg` |
+| **Sources** | `sources/figures/high-and-lows-2d.jpg`, `sources/figures/highs-and-lows-3d.jpg` |
 
 ### 2.3 Highs and lows — characteristics
 
