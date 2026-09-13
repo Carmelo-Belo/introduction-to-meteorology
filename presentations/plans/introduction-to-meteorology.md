@@ -369,7 +369,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Structure of a cold front, associated weather signs, and the characteristic wind shift on passage. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/cold-front.jpg`, `sources/figures/cold-front-map.jpg` |
 
 ### 3.4 Warm fronts
 
@@ -379,7 +379,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Structure of a warm front and its associated (typically more gradual) weather signs. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/warm-front.jpg`, `sources/figures/warm-front-map.jpg` |
 
 ### 3.5 Occluded fronts
 
