@@ -121,7 +121,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Layers of the atmosphere (troposphere, stratosphere, etc.); establish that essentially all weather relevant to sailors happens in the troposphere. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/vertical-structure-atmosphere.jpg`, `sources/figures/vertical-structure-atmosphere-drawing.jpg` |
 
 ### 1.3 Temperature in the atmosphere
 
@@ -130,7 +130,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Title** | |
 | **Subtitle** | |
 | **Content** | Lapse rate basics; why temperature decreases with altitude in the troposphere. |
-| **Layout** | |
+| **Layout** | Small side box: upward arrow labeled "Height ↑" paired with a downward arrow labeled "Temperature ↓", visually showing the inverse relationship. |
 | **Sources** | |
 
 ### 1.4 Pressure
@@ -140,7 +140,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Title** | |
 | **Subtitle** | |
 | **Content** | Definition of atmospheric pressure, units (hPa/mb), and why it decreases with altitude. |
-| **Layout** | |
+| **Layout** | Small side box: upward arrow labeled "Height ↑" paired with a downward arrow labeled "Pressure ↓", visually showing the inverse relationship. |
 | **Sources** | |
 
 ### 1.5 Humidity
@@ -150,7 +150,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Title** | |
 | **Subtitle** | |
 | **Content** | Define humidity (water vapor content of the air) at a high level — absolute vs. relative humidity, no psychrometrics. Establish that pressure, temperature, and humidity are the three primary variables meteorologists track to describe the state of the atmosphere, completing the trio introduced via Modules 1.3-1.4. Briefly flag why humidity matters for sailors (fog risk, comfort, visibility), to be revisited in later modules. |
-| **Layout** | |
+| **Layout** | Small side box: upward arrow labeled "Height ↑" paired with a downward arrow labeled "Humidity ↓", visually showing the inverse relationship. |
 | **Sources** | |
 
 ### 1.6 Barometric tendency
@@ -191,7 +191,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Uneven solar heating by latitude as the root driver of atmospheric motion; sets up global circulation. |
 | **Layout** | |
-| **Sources** | `sources/figures/solar-radiation-on-earth.png` |
+| **Sources** | `sources/figures/solar-radiation-on-earth.png`, `sources/figures/solar-radiation-incidence.png` |
 
 ### 1.10 Global atmospheric circulation
 
