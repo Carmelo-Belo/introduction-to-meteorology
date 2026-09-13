@@ -23,7 +23,7 @@ Per-slide `Sources` rows below are left empty until specific material is collect
 
 ## Number of slides
 
-~81, across 11 modules (0-10).
+~82, across 11 modules (0-10).
 
 ## Status
 
@@ -225,9 +225,39 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 
 ---
 
-## Module 2 — Wind & pressure systems (10 slides)
+## Module 2 — Wind & pressure systems (11 slides)
 
-### 2.1 What is wind
+### 2.1 Reading isobars
+
+| Category     | Entry                                                                                           |
+| ------------ | ----------------------------------------------------------------------------------------------- |
+| **Title**    | Pressure systems                                                                               |
+| **Subtitle** | Pressure importance and isobars                                                                |
+| **Content**  | How to infer wind direction and strength from isobar spacing and curvature on a pressure chart. |
+| **Layout**   | Right: isobars map figure. Bottom-left: Albatross template seabox with the definition of an isobar. Top-left: text box noting that pressure is an especially relevant variable in meteorology, as it influences many aspects of the atmosphere at different scales. |
+| **Sources**  | `sources/figures/isobars-map.png`                                                                |
+
+### 2.2 Highs and lows — definitions
+
+| Category | Entry |
+|---|---|
+| **Title** | Pressure systems |
+| **Subtitle** | Highs and Lows |
+| **Content** | High-pressure seabox: "Area with higher pressure relative to the surroundings, central descending air (**subsidence**) and diverging air at the surface." Low-pressure seabox: "Area with lower pressure relative to the surroundings, central rising air (**uplift**) and converging air at the surface." |
+| **Layout** | Figure centered across the top. Below it, two seaboxes side by side: high-pressure definition on the left, low-pressure definition on the right. "Subsidence" and "uplift" bolded per template convention. |
+| **Sources** | `sources/figures/high-and-lows-2d.jpg` |
+
+### 2.3 Highs and lows — characteristics
+
+| Category | Entry |
+|---|---|
+| **Title** | Pressure systems |
+| **Subtitle** | Highs and Lows |
+| **Content** | Table comparing characteristics of high- and low-pressure systems (e.g. wind circulation direction, associated weather, typical strength/extent) and the type of weather typically associated with each. Exact rows/columns and layout to be defined later. |
+| **Layout** | |
+| **Sources** | |
+
+### 2.4 What is wind
 
 | Category | Entry |
 |---|---|
@@ -237,7 +267,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.2 Pressure gradient force
+### 2.5 Pressure gradient force
 
 | Category | Entry |
 |---|---|
@@ -247,7 +277,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.3 The Coriolis effect on wind
+### 2.6 The Coriolis effect on wind
 
 | Category | Entry |
 |---|---|
@@ -257,7 +287,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.4 Geostrophic wind vs. surface wind
+### 2.7 Geostrophic wind vs. surface wind
 
 | Category | Entry |
 |---|---|
@@ -267,27 +297,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.5 Highs and lows
-
-| Category | Entry |
-|---|---|
-| **Title** | |
-| **Subtitle** | |
-| **Content** | Characteristics of high- and low-pressure systems and the type of weather typically associated with each. |
-| **Layout** | |
-| **Sources** | |
-
-### 2.6 Reading isobars
-
-| Category | Entry |
-|---|---|
-| **Title** | |
-| **Subtitle** | |
-| **Content** | How to infer wind direction and strength from isobar spacing and curvature on a pressure chart. |
-| **Layout** | |
-| **Sources** | |
-
-### 2.7 Buys Ballot's Law
+### 2.8 Buys Ballot's Law
 
 | Category | Entry |
 |---|---|
@@ -297,7 +307,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.8 Sea breeze & land breeze
+### 2.9 Sea breeze & land breeze
 
 | Category | Entry |
 |---|---|
@@ -305,9 +315,9 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Subtitle** | |
 | **Content** | Diurnal local wind cycle driven by differential land/sea heating; direct relevance to coastal sailing timing. |
 | **Layout** | |
-| **Sources** | |
+| **Sources** | `sources/figures/land-and-sea-breeze.jpeg` |
 
-### 2.9 Katabatic/valley winds and other local effects
+### 2.10 Katabatic/valley winds and other local effects
 
 | Category | Entry |
 |---|---|
@@ -317,7 +327,7 @@ Per-slide tables below have only the **Content** row filled in. **Title**, **Sub
 | **Layout** | |
 | **Sources** | |
 
-### 2.10 Gusts & downbursts
+### 2.11 Gusts & downbursts
 
 | Category | Entry |
 |---|---|
