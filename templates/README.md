@@ -29,3 +29,17 @@ Custom sea/sunset-themed Beamer template built for this repo (`albatrossbeamer` 
 The sunset accent colors (`#FF8800` orange, `#FFDD00` yellow) are intentionally *not* used for text — they're reserved for annotating figures (e.g. a TikZ box/circle drawn over an image to highlight a region), demonstrated in the demo file.
 
 - Key files: `albatrossbeamer.cls` (the class), `albatrossbeamer.tex` (demo presentation: title page, bullets/alert, `seabox`/`surfbox`, a figure-highlighting example), `albatrosscolor.sty` (color definitions, including the neutral `darkgrey`), `logo/albatros-logo.png` (local copy of the shared logo in `templates/assets/`), `background/albatrosHD.jpg` (title-slide background photo), `fonts/{bebasneue,josefinsans,lato}/` (bundled font files + their `OFL.txt` licenses)
+
+## `bsc-template/`
+
+BSC / Earth Sciences Department (CES) Beamer template (`bscbeamer` class), built to match the official `Template-BSC+CES.pptx` brand deck one level up. **Requires XeLaTeX** (`xelatex bscbeamer.tex`, run twice for references), since it loads Carlito via `fontspec` — a Calibri metric-compatible substitute (system font, package `fonts-crosextra-carlito` on Debian/Ubuntu) rather than bundling Calibri itself, which is proprietary.
+
+**Look (title slide):** left third is a full-bleed navy-tinted Earth photo (`assets/bg-earth.png`) over a solid navy (`#1A2C57`) backdrop, scoped in via a background template around the title frame (swap the image for a different presentation's own cover photo). Right two-thirds is white, with the "Earth Sciences Department | BSC" logo lockup (`assets/logo-earth-sciences-bsc.png`) top-right, a bold uppercase title, subtitle, and a navy author/date footer bar at the bottom.
+
+**Look (section-header & closing slides):** built with the `\bscsectionpage{title}{subtitle}` command — a full-bleed background photo (`assets/bg-section.jpg` by default; override per presentation with `\setbscsectionphoto{...}`) under a semi-transparent navy scrim so any swapped-in photo still reads on-brand, the BSC logo (`assets/logo-bsc.jpg`) as a badge top-left, and bold uppercase title/subtitle in white. Used for both mid-deck section breaks and a closing "Thank you / Q&A" slide.
+
+**Look (content slides):** white background, solid navy frametitle band with bold uppercase white title (optional subtitle line beneath, no logo in the band), circular bullet markers in navy, plain black body text. The BSC logo sits small in the footline, bottom-left, with the frame number bottom-right.
+
+Only the reusable frame types above are implemented — the source deck's one-off icon-card content layouts (e.g. rounded "SERVICES/TOOLS" boxes) aren't part of the template.
+
+- Key files: `bscbeamer.cls` (the class), `bscbeamer.tex` (demo presentation: title page, a section page, bullets/alert, two-column content, closing page), `bsccolor.sty` (color definitions: `bscnavy`, `bscblue`, `bscgrey`, `bscwhite`), `assets/` (`logo-bsc.jpg`, `logo-earth-sciences-bsc.png`, `bg-earth.png`, `bg-section.jpg` — extracted directly from `Template-BSC+CES.pptx`)

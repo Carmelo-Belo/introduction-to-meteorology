@@ -1,0 +1,50 @@
+% Demo presentation for the BSC+CES template.
+% Compile with: xelatex bscbeamer.tex (run twice for references)
+
+\documentclass{bscbeamer}
+
+\title{Introduction to Meteorology}
+\subtitle{A first look at the atmosphere}
+\author{Author}
+\date{\today}
+
+\begin{document}
+
+\bsctitleframe
+
+\bscsectionpage{Data and Diagnostics}{An overview of services and tools}
+
+\begin{frame}{Writing a simple slide}
+  \framesubtitle{Title, subtitle, body text}
+  \begin{itemize}
+    \item The frame title sits in a solid navy band, white and uppercase
+    \item The BSC logo lives in the footline, bottom-left
+      \begin{itemize}
+        \item Bullets use circular markers in the navy structure color
+        \begin{itemize}
+          \item Nested levels keep the same marker, just indented
+        \end{itemize}
+      \end{itemize}
+    \item Body text is plain black on white for readability
+    \item Use \alert{alert} to bring focus to something, in navy
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Two-column content}
+  \framesubtitle{Text alongside a figure}
+  \begin{columns}
+    \column{.55\textwidth}
+      \begin{itemize}
+        \item Use \texttt{columns} for text/figure layouts
+        \item The BSC logo lockup is bundled in \texttt{assets/}
+        \item Swap \texttt{assets/bg-section.jpg} for a presentation-specific
+          section-slide photo via \texttt{\textbackslash setbscsectionphoto\{...\}}
+      \end{itemize}
+    \column{.45\textwidth}
+      \includegraphics[width=\linewidth]{assets/logo-bsc}
+  \end{columns}
+\end{frame}
+
+\bscsectionpage{Thank You}{Q\&A}
+
+\end{document}
