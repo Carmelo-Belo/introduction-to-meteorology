@@ -34,16 +34,21 @@
 \setbeamercovered{transparent}
 
 % Colors
-\setbeamercolor{normal text}{fg=black,bg=bscwhite}
+\setbeamercolor{normal text}{fg=bscbodytext,bg=bscwhite}
 \setbeamercolor{background canvas}{bg=bscwhite}
 \setbeamercolor{structure}{fg=bscnavy}
 \setbeamercolor{alerted text}{fg=bscnavy}
-\setbeamercolor{frametitle}{fg=bscwhite,bg=bscnavy}
-\setbeamercolor{framesubtitle}{fg=bscgrey,bg=bscnavy}
+% Bullet markers (all nesting levels inherit from item): match body text.
+\setbeamercolor{item}{fg=bscbodytext}
+\setbeamercolor{frametitle}{fg=bscwhite,bg=bscframetitlebg}
+\setbeamercolor{framesubtitle}{fg=bscgrey,bg=bscframetitlebg}
 \setbeamercolor{title}{fg=bscblue,bg=bscwhite}
 \setbeamercolor{subtitle}{fg=black,bg=bscwhite}
 \setbeamercolor{author}{fg=bscnavy}
 \setbeamercolor{date}{fg=white}
+
+% Content-slide frame title: always bold.
+\setbeamerfont{frametitle}{series=\bfseries}
 
 % Title-slide title/subtitle sizes -- scaled from beamer's default
 % \normalsize (11pt, matching the title page's author/date text, which is
@@ -54,10 +59,11 @@
 \setbeamerfont{bsctitleboxtitle}{size={\fontsize{25.92pt}{32.04pt}\selectfont},series=\bfseries}
 \setbeamerfont{bsctitleboxsubtitle}{size={\fontsize{14.73pt}{18.21pt}\selectfont}}
 
-% Bullet points: circles, colored from the structure color (navy)
+% Bullet points, by nesting level: filled circle, hollow circle, filled
+% square (color set above via \setbeamercolor{item}).
 \setbeamertemplate{itemize item}[circle]
-\setbeamertemplate{itemize subitem}[circle]
-\setbeamertemplate{itemize subsubitem}[circle]
+\setbeamertemplate{itemize subitem}{\usebeamerfont*{itemize subitem}\raise1.5pt\hbox{\donotcoloroutermaths$\circ$}}
+\setbeamertemplate{itemize subsubitem}[square]
 
 % Brand assets. Logos and the title-slide earth photo are fixed brand
 % elements (internal-only macros); the section/closing background photo is
@@ -69,21 +75,22 @@
 \newcommand{\@BSCsectionphoto}{assets/bg-section}
 \newcommand{\setbscsectionphoto}[1]{\renewcommand{\@BSCsectionphoto}{#1}}
 
-% Logo indent on content-slide frame titles.
-\newlength{\bscframetitleindent}
-\setlength{\bscframetitleindent}{6mm}
+% Venue: presentation-supplied title-page metadata, alongside \author/\date
+% (beamer has no built-in equivalent).
+\newcommand{\@BSCvenue}{}
+\newcommand{\venue}[1]{\renewcommand{\@BSCvenue}{#1}}
 
 % Frame title: solid navy band, white bold uppercase title, optional
-% subtitle line underneath. No logo in the band -- the brand logo lives in
-% the footline instead, matching the source deck's content slides.
+% subtitle line underneath, both centered in the band. No logo in the band --
+% the brand logo lives in the footline instead, matching the source deck's
+% content slides.
 \setbeamertemplate{frametitle}
 {
   \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=13mm,dp=3mm,left]{frametitle}
-    \hspace*{\bscframetitleindent}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=13mm,dp=3mm,center]{frametitle}
     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}\\[-1mm]
     \ifx\insertframesubtitle\@empty\else
-      \hspace*{\bscframetitleindent}{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
     \fi
   \end{beamercolorbox}
 }
@@ -98,12 +105,12 @@
 \setbeamertemplate{title page}
 {
   \begin{tikzpicture}[remember picture,overlay]
-    % Light-grey scrim behind every right-side element (logo/title/subtitle/
+    % Mid-grey scrim behind every right-side element (logo/title/subtitle/
     % name) -- left edge matches the Name-and-surname box's left edge
     % (x:7.49in), full height, right up to the slide's right edge. The
     % date/venue box stays outside it, left of x:7.49in, directly on the raw
     % photo (hence its white text).
-    \fill[bscgrey,opacity=0.8]
+    \fill[bscmidgrey,opacity=0.8]
       ([xshift=0.3745\paperwidth]current page.north west)
       rectangle
       (current page.south east);
@@ -148,34 +155,53 @@
       at (current page.north west)
       {\usebeamerfont{author}\color{bscnavy}\insertauthor};
 
-    % Date and venue -- left edge at the slide's left border, right edge at
-    % the Name-and-surname box's left edge (x:7.49in), so width = 7.49in;
-    % y:10.06in h:0.5in unchanged. Text horizontally and vertically centered
-    % (anchor=center on the box's midpoint: x=7.49in/2=3.745in,
-    % y=10.06in + 0.5in/2 = 10.31in).
-    \node[anchor=center,inner sep=0pt,align=center,
+    % Venue and date -- left edge at the slide's left border, right edge at
+    % the Name-and-surname box's left edge (x:7.49in), so width = 7.49in.
+    % Bottom edge matches the Name-and-surname box's bottom edge
+    % (y=0.9645\paperheight); anchor=south grows the two-line block upward
+    % from there instead of needing a hand-tuned box height.
+    \node[anchor=south,inner sep=0pt,align=center,
           text width=0.3745\paperwidth,
-          xshift=0.18725\paperwidth,yshift=-0.916444\paperheight]
+          xshift=0.18725\paperwidth,yshift=-0.9645\paperheight]
       at (current page.north west)
-      {\usebeamerfont{date}\color{white}\insertdate};
+      {\usebeamerfont{date}\color{white}\@BSCvenue\\\insertdate};
   \end{tikzpicture}
 }
 
-% Opens the title frame with the full-slide earth-photo background (native
-% image aspect matches 16:9 exactly, so it always fills edge to edge with
-% no distortion or clipping) and calls \maketitle -- a presentation just
-% calls \bsctitleframe instead of wrapping \maketitle itself.
+% Shared body for the title-page layout: full-slide earth-photo background
+% (native image aspect matches 16:9 exactly, so it always fills edge to edge
+% with no distortion or clipping), then \maketitle. Used both by the opening
+% title frame and by \bscclosingframe below, which overrides \title/
+% \subtitle first so the same layout can close the deck with different text.
+\newcommand{\@bsctitleframebody}{%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south west,inner sep=0pt] at (current page.south west)
+        {\includegraphics[width=\paperwidth]{\@BSCtitlephoto}};
+    \end{tikzpicture}%
+  }
+  \begin{frame}[plain,noframenumbering]
+    \maketitle
+  \end{frame}
+}
+
+% Opens the presentation -- a presentation just calls \bsctitleframe instead
+% of wrapping \maketitle itself.
 \newcommand{\bsctitleframe}{%
   {%
-    \usebackgroundtemplate{%
-      \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west,inner sep=0pt] at (current page.south west)
-          {\includegraphics[width=\paperwidth]{\@BSCtitlephoto}};
-      \end{tikzpicture}%
-    }
-    \begin{frame}[plain,noframenumbering]
-      \maketitle
-    \end{frame}
+    \@bsctitleframebody
+  }%
+}
+
+% Closes the presentation with the same title-page layout (earth photo,
+% logo, author/venue/date), but its own title/subtitle text -- e.g.
+% \bscclosingframe{Thank You}{Questions?}. \title/\subtitle are TeX macros
+% scoped by \def, so overriding them inside this group doesn't affect the
+% opening \bsctitleframe's title/subtitle.
+\newcommand{\bscclosingframe}[2]{%
+  {%
+    \title{#1}\subtitle{#2}%
+    \@bsctitleframebody
   }%
 }
 
@@ -207,14 +233,41 @@
   }%
 }
 
+% Part-transition ("module divider") slide: full-bleed background photo (a
+% swappable placeholder, like \@BSCsectionphoto) under a full-slide grey
+% wash -- the title slide's mid-grey scrim color, at 60% opacity -- with
+% the new part's name centered on the slide, in the same font, color, and
+% uppercasing as the title-slide title box. No fixed text width: the node
+% sizes itself to the text, and both stay centered on the page.
+\newcommand{\@BSCpartphoto}{assets/storm}
+\newcommand{\setbscpartphoto}[1]{\renewcommand{\@BSCpartphoto}{#1}}
+\newcommand{\bscpartframe}[1]{%
+  {%
+    \setbeamertemplate{background}{%
+      \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=center,inner sep=0pt] at (current page.center)
+          {\includegraphics[width=\paperwidth,height=\paperheight]{\@BSCpartphoto}};
+        \fill[bscmidgrey,opacity=0.6] (current page.south west) rectangle (current page.north east);
+        \node[anchor=center,inner sep=0pt,align=center] at (current page.center)
+          {\usebeamerfont{bsctitleboxtitle}\color{bscblue}\MakeUppercase{#1}};
+      \end{tikzpicture}%
+    }
+    \begin{frame}[plain,noframenumbering]
+    \end{frame}
+  }%
+}
+
 % Footline: BSC logo bottom-left, frame number bottom-right -- matches the
 % source deck's content-slide footer. Suppressed on [plain] frames (title,
 % section, closing), same as the headline/frametitle.
 \setbeamertemplate{footline}{
   \begin{beamercolorbox}[wd=\paperwidth,ht=8mm,dp=2mm]{footline}
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=south west,xshift=4mm,yshift=1mm] at (current page.south west)
-        {\includegraphics[height=5mm]{\@BSClogo}};
+      % Sized to the same proportion as the source deck's footline logo
+      % (4.57in x 1.14in on a 20in x 11.25in slide), as a fraction of the
+      % page so it stays correct regardless of paper size.
+      \node[anchor=south west,inner sep=0pt] at (current page.south west)
+        {\includegraphics[width=0.2285\paperwidth,height=0.1013\paperheight]{\@BSClogo}};
       \node[anchor=south east,xshift=-4mm,yshift=1.5mm] at (current page.south east)
         {\color{bscnavy}\insertframenumber\,/\,\inserttotalframenumber};
     \end{tikzpicture}

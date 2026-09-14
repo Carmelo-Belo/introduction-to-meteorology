@@ -7,12 +7,11 @@
 \subtitle{A first look at the atmosphere}
 \author{Author}
 \date{\today}
+\venue{Venue}
 
 \begin{document}
 
 \bsctitleframe
-
-\bscsectionpage{Data and Diagnostics}{An overview of services and tools}
 
 \begin{frame}{Writing a simple slide}
   \framesubtitle{Title, subtitle, body text}
@@ -20,15 +19,17 @@
     \item The frame title sits in a solid navy band, white and uppercase
     \item The BSC logo lives in the footline, bottom-left
       \begin{itemize}
-        \item Bullets use circular markers in the navy structure color
+        \item Sub-bullets use a hollow circle marker
         \begin{itemize}
-          \item Nested levels keep the same marker, just indented
+          \item Nested further, markers become a filled square
         \end{itemize}
       \end{itemize}
     \item Body text is plain black on white for readability
     \item Use \alert{alert} to bring focus to something, in navy
   \end{itemize}
 \end{frame}
+
+\bscpartframe{Part Two}
 
 \begin{frame}{Two-column content}
   \framesubtitle{Text alongside a figure}
@@ -45,6 +46,6 @@
   \end{columns}
 \end{frame}
 
-\bscsectionpage{Thank You}{Q\&A}
+\bscclosingframe{Thanks for the attention}{Questions?}
 
 \end{document}
