@@ -87,7 +87,7 @@
 \setbeamertemplate{frametitle}
 {
   \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=13mm,dp=3mm,center]{frametitle}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=11mm,dp=2.5mm,center]{frametitle}
     \usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}\\[-1mm]
     \ifx\insertframesubtitle\@empty\else
       {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}%
