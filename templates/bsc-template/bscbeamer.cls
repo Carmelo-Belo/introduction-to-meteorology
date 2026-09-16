@@ -23,6 +23,7 @@
 \RequirePackage{fontspec}
 \setmainfont{Carlito}
 \RequirePackage{graphicx,bsccolor,tikz}
+\usetikzlibrary{arrows.meta}
 
 % Following commands will not be activated for article mode.
 \mode<presentation>
@@ -50,13 +51,19 @@
 % Content-slide frame title: always bold.
 \setbeamerfont{frametitle}{series=\bfseries}
 
-% Title-slide title/subtitle sizes -- scaled from beamer's default
-% \normalsize (11pt, matching the title page's author/date text, which is
-% unset and kept as-is) using the same proportions as the original Google
-% Slides deck's point sizes: title 69.5pt : subtitle 39.5pt : author/date
-% 29.5pt. Distinct from the generic "title"/"subtitle" beamerfonts (still
-% their beamer defaults) so \bscsectionpage's title stays unaffected.
-\setbeamerfont{bsctitleboxtitle}{size={\fontsize{25.92pt}{32.04pt}\selectfont},series=\bfseries}
+% Title-slide title/subtitle sizes. Subtitle is still scaled from beamer's
+% default \normalsize (11pt, matching the title page's author/date text,
+% which is unset and kept as-is) using the original Google Slides deck's
+% point-size proportions: title 69.5pt : subtitle 39.5pt : author/date
+% 29.5pt. The title's own size/line-spacing were later hand-tuned by
+% Filippo to 22pt/21pt (tighter than the ratio-derived 25.92pt/32.04pt,
+% and deliberately tighter than the font size itself) and kept as the
+% template default from 2026-09-16 onward. This same beamerfont is reused
+% by \bscclosingframe (it shares \bsctitleframe's title-page template
+% body), so this one setting covers both the opening and closing slides.
+% Distinct from the generic "title"/"subtitle" beamerfonts (still their
+% beamer defaults) so \bscsectionpage's title stays unaffected.
+\setbeamerfont{bsctitleboxtitle}{size={\fontsize{22pt}{21pt}\selectfont},series=\bfseries}
 \setbeamerfont{bsctitleboxsubtitle}{size={\fontsize{14.73pt}{18.21pt}\selectfont}}
 
 % Bullet points, by nesting level: filled circle, hollow circle, filled
@@ -125,12 +132,26 @@
     % slide's right border (same as the gap from the white scrim's left edge
     % to this box's left edge), so width = 19.25in - 8.24in = 11.01in.
     % Named so the subtitle below can anchor off its actual rendered height.
+    %
+    % The trailing "\par" is required, not decorative: this node's
+    % "text width" makes tikz wrap the title inside a real \minipage, but
+    % something between our \usebeamerfont call and that minipage's own
+    % (implicit) closing \par resets \baselineskip back to a default before
+    % TeX actually breaks the paragraph into lines -- so without an explicit
+    % \par here, the "bsctitleboxtitle" beamerfont's line-spacing (the
+    % second \fontsize{...}{...} argument, set below) is silently ignored
+    % for a multi-line title, no matter what it's set to. Verified directly
+    % (in the ES seminar deck, where this was first hit): \fontsize{...}
+    % {100pt} produced zero visible change without \par, and a clearly-
+    % oversized gap with it. Forcing our own \par immediately finalizes
+    % this paragraph's line-breaking while our baselineskip is still the
+    % active value, before whatever resets it afterward can run.
     \node[name=bsctitletext,anchor=north west,inner sep=0pt,align=left,
           text width=0.5505\paperwidth,
           xshift=0.4120\paperwidth,yshift=-0.3342\paperheight]
       at (current page.north west)
       {\usebeamerfont{bsctitleboxtitle}\hyphenchar\font=-1
-       \color{bscblue}\MakeUppercase{\inserttitle}};
+       \color{bscblue}\MakeUppercase{\inserttitle}\par};
 
     % Presentation subtitle -- same x and right edge as the title box above;
     % positioned a fixed gap below the title's own bottom edge (rather than
@@ -248,13 +269,84 @@
         \node[anchor=center,inner sep=0pt] at (current page.center)
           {\includegraphics[width=\paperwidth,height=\paperheight]{\@BSCpartphoto}};
         \fill[bscmidgrey,opacity=0.6] (current page.south west) rectangle (current page.north east);
-        \node[anchor=center,inner sep=0pt,align=center] at (current page.center)
+        \node[anchor=center,inner sep=0pt,align=center,text width=0.82\paperwidth] at (current page.center)
           {\usebeamerfont{bsctitleboxtitle}\color{bscblue}\MakeUppercase{#1}};
       \end{tikzpicture}%
     }
     \begin{frame}[plain,noframenumbering]
     \end{frame}
   }%
+}
+
+% General-purpose accent box for tikz content (comparison boxes, callouts,
+% flow-diagram steps, ...): rounded corners, border+text colored to match
+% the frame-title band by default, centered text. Position/size (a
+% "text width", and right=/below=/at=... placement) and, for a one-off case
+% like a semantic green/red pro-con pair, the border+text color, are left to
+% the caller -- those genuinely depend on where the box sits and how big it
+% needs to be, which is presentation-specific. Usage:
+%   \node[bscbox, text width=5cm] (a) {Some text};    % default navy border
+%   \node[bscbox, draw=advgreen, text width=5cm] (b) {Some text}; % overridden
+%     -- text color stays bscbodytext even when the border is overridden,
+%     matching how the pro/con boxes in the ES seminar deck do it (green/red
+%     border, but body text stays the deck's normal navy).
+\tikzset{
+  bscbox/.style={
+    draw=bscframetitlebg,
+    text=bscbodytext,
+    rounded corners=8pt,
+    line width=1.5pt,
+    align=center,
+    inner sep=6pt,
+  }
+}
+
+% Arrow style for connecting bscbox nodes into a flow/pipeline diagram
+% (e.g. step1 -> step2 -> step3). Usage:
+%   \draw[bscarrow] (a) -- (b);
+\tikzset{
+  bscarrow/.style={-{Stealth[length=3mm]}, line width=1.5pt, draw=bscframetitlebg}
+}
+
+% Milestone-timeline styles: a horizontal spine (bsctimelinearrow), a
+% vertical tick from the spine down/up to each milestone (bsctimelinestem),
+% and the date/label text at each milestone (bsctimelinelabel). Deliberately
+% left as styles rather than a single parameterized macro -- the actual
+% stem length, image size, and high/low offset per milestone are always
+% hand-tuned to the specific content, not incidental detail a macro could
+% hide. See the "Milestone timeline" demo frame below for a worked example.
+% Usage sketch, for one milestone on the "high" tier:
+%   \draw[bsctimelinestem] (2,5.6) -- (2,5.0);
+%   \filldraw[bscframetitlebg] (2,5.6) circle (2.5pt);
+%   \node[bsctimelinelabel] at (2,4.5) {\footnotesize\textbf{2022}\\\footnotesize Label};
+%   \node at (2,2.9) {\includegraphics[width=3.8cm]{figures/example.jpg}};
+\tikzset{
+  bsctimelinearrow/.style={draw=bscframetitlebg, line width=2pt, ->},
+  bsctimelinestem/.style={draw=bscframetitlebg, line width=1.5pt},
+  bsctimelinelabel/.style={align=center, text=bscbodytext},
+}
+
+% Rotated-photo collage: five images scattered and overlapping like a
+% puzzle, each framed with a thin white border. Fixed to exactly five
+% images/positions/rotations (matching every actual use of this pattern) --
+% not generalized to arbitrary N, since a collage's whole visual point is a
+% specific hand-tuned arrangement, not an arbitrary list. Usage:
+%   \bscphotocollage{figures/a.jpg}{figures/b.jpg}{figures/c.jpg}{figures/d.jpg}{figures/e.jpg}
+\newcommand{\bscphotocollage}[5]{%
+  \begin{center}
+  \begin{tikzpicture}
+    \node[rotate=-8, draw=white, line width=1.5pt, fill=white, inner sep=1mm]
+      at (-0.7,0.1) {\includegraphics[width=2.3cm]{#1}};
+    \node[rotate=7, draw=white, line width=1.5pt, fill=white, inner sep=1mm]
+      at (2.8,1.3) {\includegraphics[width=2.3cm]{#2}};
+    \node[rotate=10, draw=white, line width=1.5pt, fill=white, inner sep=1mm]
+      at (0.7,-2.2) {\includegraphics[width=2.3cm]{#3}};
+    \node[rotate=-6, draw=white, line width=1.5pt, fill=white, inner sep=1mm]
+      at (4.0,-1.6) {\includegraphics[width=2.3cm]{#4}};
+    \node[rotate=3, draw=white, line width=1.5pt, fill=white, inner sep=1mm]
+      at (1.7,-0.5) {\includegraphics[width=2.3cm]{#5}};
+  \end{tikzpicture}
+  \end{center}
 }
 
 % Footline: BSC logo bottom-left, frame number bottom-right -- matches the

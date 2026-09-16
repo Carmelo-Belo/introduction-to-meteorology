@@ -3,6 +3,12 @@
 
 \documentclass{bscbeamer}
 
+\usetikzlibrary{positioning}
+% Local to this deck, not part of the official BSC/CES palette in
+% bsccolor.sty -- these are just a semantic green/red for pro/con boxes.
+\definecolor{advgreen}{HTML}{2E7D32}
+\definecolor{disred}{HTML}{C62828}
+
 \title{Introduction to Meteorology}
 \subtitle{A first look at the atmosphere}
 \author{Author}
@@ -44,6 +50,186 @@
     \column{.45\textwidth}
       \includegraphics[width=\linewidth]{assets/logo-bsc}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Weighing pros and cons}
+  \framesubtitle{A two-step reveal: advantages first, drawbacks after}
+  % Pattern for a slide that builds in two steps -- e.g. "here's what's good
+  % about X" (click) "...and here's the trade-off" -- with the first column
+  % NOT shifting position when the second column appears.
+  %
+  % The naive approach (two separate \begin{frame}s, or a bare
+  % "\node<2->{...}") is broken: a tikzpicture's bounding box is only ever
+  % as wide as the nodes it actually contains, and \centering centers THAT
+  % box. So if the left column exists alone on step 1 and both columns
+  % exist on step 2, \centering computes two different boxes and the left
+  % column visibly jumps between steps. Bare "\node<2->{...}" doesn't fix
+  % this either -- on excluded steps it omits the node entirely (like
+  % \only), so the bounding box really is just the left column there too.
+  %
+  % The fix: always create every node on every step (so the bounding box is
+  % permanently the full two-column grid), and reveal the second column by
+  % toggling its opacity instead of its existence. Embedding
+  % "\alt<2->{...}{...}" directly inside a tikz key=value pair breaks
+  % beamer's active "<" overlay parser, so resolve it to a plain macro
+  % first, outside any options list, and reference that macro (no "<>" at
+  % all) inside the node options.
+  \alt<2->{\def\disopacity{1}}{\def\disopacity{0}}
+  \centering
+  % The shared padding/rounded-corners/linewidth/centering/default-color
+  % live once in bscbeamer.cls as the "bscbox" tikz style -- only the things
+  % that genuinely depend on this specific slide (text width, position, and
+  % here a semantic green/red override) are set locally.
+  \begin{tikzpicture}[
+      adv/.style={bscbox, draw=advgreen, text width=4.6cm},
+      dis/.style={bscbox, draw=disred, text width=4.6cm}
+    ]
+    \node[adv] (a1) {Advantage 1};
+    \node[adv, below=9mm of a1] (a2) {Advantage 2};
+    \node[adv, below=9mm of a2] (a3) {Advantage 3};
+
+    \node[dis, right=2.2cm of a1, opacity=\disopacity, text opacity=\disopacity] (d1) {Drawback 1};
+    \node[dis, below=9mm of d1, opacity=\disopacity, text opacity=\disopacity] (d2) {Drawback 2};
+    \node[dis, below=9mm of d2, opacity=\disopacity, text opacity=\disopacity] (d3) {Drawback 3};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Left content first, then the rest}
+  \framesubtitle{A horizontal two-step reveal: text first, image added}
+  % A simpler two-step reveal than the pros/cons example above: left column
+  % on step 1, right column added on step 2, with the left column never
+  % shifting position in between.
+  %
+  % This DOESN'T need that example's always-create/opacity workaround,
+  % because beamer's columns environment uses FIXED widths (.5\textwidth
+  % each, declared explicitly below) rather than sizing to content -- so
+  % hiding the right column's content can't recenter/reshift the left one.
+  % There's no shared tikzpicture bounding box here to cause that problem.
+  % Reach for the pros/cons example's technique instead only when the two
+  % halves genuinely share one tikzpicture (e.g. two columns of connected
+  % nodes, or anything that needs \centering on the combined content).
+  %
+  % Use \visible<2->{...}, NOT \uncover<2->{...} -- bscbeamer.cls sets
+  % \setbeamercovered{transparent} globally (so normal bullets fade in one
+  % at a time), and \uncover respects whatever that global covered-style
+  % is, so the right column would show up faded-but-present on step 1
+  % instead of fully hidden. \visible always forces full invisibility
+  % regardless of that style, which is what gives a clean reveal.
+  %
+  % Reproducing other arrangements: swap which side is wrapped in
+  % \visible<2->{...} to flip the reveal direction, or stack the two
+  % \column bodies as two \parbox/minipage rows instead of side-by-side
+  % columns for a vertical (top-then-bottom) reveal -- same \visible<2->
+  % logic applies either way, as long as the layout uses fixed widths/
+  % heights rather than sizing to content.
+  \begin{columns}[c]
+    \column{.5\textwidth}
+      \small
+      Placeholder text for the part of the slide that's on screen from the
+      start -- swap this for whatever should be visible on step 1.
+    \column{.5\textwidth}
+      \visible<2->{%
+        \begin{center}
+          \includegraphics[width=.6\linewidth]{assets/logo-bsc}
+        \end{center}
+      }%
+  \end{columns}
+\end{frame}
+
+\begin{frame}{A single sentence alongside a figure}
+  \framesubtitle{Text/figure variant: short claim, large figure}
+  % For a one-line claim rather than a bullet list, give the text column a
+  % narrower share of the width and let the figure dominate the slide.
+  \begin{columns}[c]
+    \column{.32\textwidth}
+      \raggedright
+      Short claim the figure backs up, in a \textbf{narrow} column
+    \column{.64\textwidth}
+      \begin{center}
+        \includegraphics[height=.70\textheight,width=\linewidth,keepaspectratio]{assets/logo-bsc}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Stacked callout boxes alongside a figure}
+  \framesubtitle{Text/figure variant: bscbox stack, not a bullet list}
+  % Same two-column shape as "Two-column content" above, but the text side
+  % is a vertical stack of bscbox callouts instead of an itemize -- use this
+  % when each point deserves its own visual box rather than a plain bullet.
+  \begin{columns}[c]
+    \column{.48\textwidth}
+      \begin{center}
+      \begin{tikzpicture}[boxcol/.style={bscbox, text width=5.5cm}]
+        \node[boxcol] (top) {First point, framed as its own box};
+        \node[boxcol, below=8mm of top] {Second point, same width, stacked below};
+      \end{tikzpicture}
+      \end{center}
+    \column{.48\textwidth}
+      \begin{center}
+        \includegraphics[width=\linewidth]{assets/logo-bsc}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{A milestone timeline}
+  \framesubtitle{Zigzag layout: high/low/high keeps neighbouring images from overlapping}
+  % Worked example of the bsctimelinearrow/bsctimelinestem/bsctimelinelabel
+  % styles (defined in bscbeamer.cls). Offsetting alternating milestones
+  % above and below the spine, not just left-to-right, is what leaves room
+  % to enlarge each image without it colliding with its neighbours. See
+  % es-seminar-mlwp.tex's Slide 2.1 for a fuller 4-point version of this
+  % same pattern with real figures.
+  \begin{center}
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}
+    \draw[bsctimelinearrow] (0,5.6) -- (16,5.6);
+
+    % Milestone 1 -- high
+    \draw[bsctimelinestem] (3,5.6) -- (3,5.0);
+    \filldraw[bscframetitlebg] (3,5.6) circle (2.5pt);
+    \node[bsctimelinelabel] at (3,4.5) {\footnotesize\textbf{Year}\\\footnotesize Milestone 1};
+    \node at (3,2.9) {\includegraphics[width=3.5cm]{assets/logo-bsc}};
+
+    % Milestone 2 -- low
+    \draw[bsctimelinestem] (8,5.6) -- (8,2.6);
+    \node[bsctimelinelabel] at (8,2.0) {\footnotesize\textbf{Year}\\\footnotesize Milestone 2};
+    \filldraw[bscframetitlebg] (8,5.6) circle (2.5pt);
+    \node at (8,0.4) {\includegraphics[width=3.5cm]{assets/logo-bsc}};
+
+    % Milestone 3 -- high
+    \draw[bsctimelinestem] (13,5.6) -- (13,5.0);
+    \filldraw[bscframetitlebg] (13,5.6) circle (2.5pt);
+    \node[bsctimelinelabel] at (13,4.5) {\footnotesize\textbf{Year}\\\footnotesize Milestone 3};
+    \node at (13,2.9) {\includegraphics[width=3.5cm]{assets/logo-bsc}};
+  \end{tikzpicture}%
+  }
+  \end{center}
+\end{frame}
+
+\begin{frame}{A box-and-arrow flow diagram}
+  \framesubtitle{bscbox nodes chained with bscarrow}
+  % Pairs bscbox (already used for callouts/comparisons above) with the
+  % bscarrow style to lay out a simple pipeline/process diagram.
+  \begin{center}
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[stepbox/.style={bscbox, text width=2.6cm, font=\normalsize}]
+    \node[stepbox] (s1) {Step 1};
+    \node[stepbox, right=1cm of s1] (s2) {Step 2};
+    \node[stepbox, right=1cm of s2] (s3) {Step 3};
+    \node[stepbox, right=1cm of s3] (s4) {Step 4};
+    \draw[bscarrow] (s1) -- (s2);
+    \draw[bscarrow] (s2) -- (s3);
+    \draw[bscarrow] (s3) -- (s4);
+  \end{tikzpicture}%
+  }
+  \end{center}
+\end{frame}
+
+\begin{frame}{A rotated-photo collage}
+  \framesubtitle{\textbackslash bscphotocollage\{...\}\{...\}\{...\}\{...\}\{...\}}
+  % Same asset repeated 5x here only because the template ships a single
+  % demo image -- a real deck passes 5 distinct figures.
+  \bscphotocollage{assets/logo-bsc}{assets/logo-bsc}{assets/logo-bsc}{assets/logo-bsc}{assets/logo-bsc}
 \end{frame}
 
 \bscclosingframe{Thanks for the attention}{Questions?}
