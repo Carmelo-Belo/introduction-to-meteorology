@@ -225,6 +225,45 @@
   \end{center}
 \end{frame}
 
+\begin{frame}{Callout boxes paired with stacked figures}
+  \framesubtitle{Composed coordinates keep both columns aligned}
+  % Two comparison rows (a bscbox callout + its own figure), stacked so the
+  % figures share one vertical line and the boxes share another, with each
+  % box still centered against its own figure -- even when the two figures
+  % are different heights, which is exactly where naive alignment breaks.
+  %
+  % A tikz matrix would auto-align rows/columns for this, but triggers a
+  % pgf-internal bug in this template's package combination (undefined
+  % \pgf@matrix@last@nextcell@options). Composed coordinates instead:
+  %   - Place the figures first: the second "below=of" the first, which
+  %     centers them on a shared x automatically and spaces off the real
+  %     (tall) figure height, so they can't collide.
+  %   - Place the first box "left=of" its figure (paired on that row).
+  %   - Pin the second box to "(box1 |- fig2)" -- same x as the first box,
+  %     same y as the second figure -- so both boxes share one vertical
+  %     line while each still lines up with its own figure.
+  % Watch the "|-"/"-|" direction: "(A -| B)" is (x of B, y of A), the
+  % OPPOSITE of what the symbol suggests at a glance -- verify with a
+  % throwaway coordinate before trusting it in a real slide.
+  %
+  % Also note: \begin{columns}[c]/\flushright/\center have no free width to
+  % redistribute once a box is already as wide as its column, so alignment
+  % commands can silently do nothing (verified by swapping center/
+  % flushright and getting pixel-identical output). Composed coordinates
+  % sidestep that failure mode entirely since they don't depend on column
+  % slack at all.
+  %
+  % Full worked example with real content: es-seminar-mlwp.tex, Slide 2.3.
+  \begin{center}
+  \begin{tikzpicture}[boxcol/.style={bscbox, text width=3.0cm, font=\small}]
+    \node (fig1) {\includegraphics[width=3.4cm]{assets/logo-bsc}};
+    \node[below=6mm of fig1] (fig2) {\includegraphics[width=3.4cm]{assets/logo-bsc}};
+    \node[boxcol, left=6mm of fig1] (box1) {First comparison point};
+    \node[boxcol] (box2) at (box1 |- fig2) {Second comparison point};
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
 \begin{frame}{A rotated-photo collage}
   \framesubtitle{\textbackslash bscphotocollage\{...\}\{...\}\{...\}\{...\}\{...\}}
   % Same asset repeated 5x here only because the template ships a single

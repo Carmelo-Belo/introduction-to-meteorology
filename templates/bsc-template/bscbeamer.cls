@@ -301,6 +301,16 @@
   }
 }
 
+% Pairing several bscbox callouts with their own stacked figures (a "box
+% paired with a figure" row, repeated) is trickier than it looks: a tikz
+% matrix would auto-align rows/columns for this but triggers a pgf-internal
+% bug in this template's package combination, and \columns[c]/\flushright/
+% \center alignment commands can silently do nothing once a box is already
+% as wide as its column (no free width left to redistribute). The working
+% recipe uses composed coordinates ("(boxA |- figB)") instead -- see the
+% "Callout boxes paired with stacked figures" demo frame in bscbeamer.tex,
+% and es-seminar-mlwp.tex's Slide 2.3 for a fuller worked example.
+
 % Arrow style for connecting bscbox nodes into a flow/pipeline diagram
 % (e.g. step1 -> step2 -> step3). Usage:
 %   \draw[bscarrow] (a) -- (b);
